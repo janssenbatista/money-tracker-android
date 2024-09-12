@@ -63,6 +63,9 @@ dependencies {
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.screenmodel)
     implementation(libs.voyager.transitions)
+    // Koin
+    implementation(libs.koin.android)
+    implementation(libs.koin.android.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
