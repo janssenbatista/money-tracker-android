@@ -1,3 +1,58 @@
 <resources>
     <string name="app_name">Money Tracker</string>
+    <string name="select_a_currency">Select a Currency</string>
+    <string name="go_back">Go back</string>
+    <string name="search_currency">Search Currency</string>
+    <string name="clear_search">Clear Search</string>
+    <string-array name="currencies">
+        <item>US Dollar ($)</item>
+        <item>Euro (€)</item>
+        <item>Japanese Yen (¥)</item>
+        <item>British Pound (£)</item>
+        <item>Australian Dollar (A$)</item>
+        <item>Canadian Dollar (C$)</item>
+        <item>Swiss Franc (CHF)</item>
+        <item>Chinese Yuan (¥)</item>
+        <item>Swedish Krona (kr)</item>
+        <item>New Zealand Dollar (NZ$)</item>
+        <item>Mexican Peso (MX$)</item>
+        <item>Singapore Dollar (S$)</item>
+        <item>Hong Kong Dollar (HK$)</item>
+        <item>Norwegian Krone (kr)</item>
+        <item>South Korean Won (₩)</item>
+        <item>Turkish Lira (₺)</item>
+        <item>Indian Rupee (₹)</item>
+        <item>Brazilian Real (R$)</item>
+        <item>South African Rand (R)</item>
+        <item>Russian Ruble (₽)</item>
+        <item>Indonesian Rupiah (Rp)</item>
+        <item>Malaysian Ringgit (RM)</item>
+        <item>Thai Baht (฿)</item>
+        <item>Philippine Peso (₱)</item>
+        <item>Czech Koruna (Kč)</item>
+        <item>Polish Zloty (zł)</item>
+        <item>Israeli Shekel (₪)</item>
+        <item>Chilean Peso (CLP$)</item>
+        <item>Pakistani Rupee (₨)</item>
+        <item>Saudi Riyal (SAR)</item>
+        <item>UAE Dirham (AED)</item>
+        <item>Hungarian Forint (Ft)</item>
+        <item>Argentine Peso (AR$)</item>
+        <item>Colombian Peso (COP$)</item>
+        <item>Egyptian Pound (E£)</item>
+        <item>Nigerian Naira (₦)</item>
+        <item>Vietnamese Dong (₫)</item>
+        <item>Bangladeshi Taka (৳)</item>
+        <item>Romanian Leu (lei)</item>
+        <item>Peruvian Sol (S/)</item>
+        <item>Kenyan Shilling (KSh)</item>
+        <item>Sri Lankan Rupee (Rs)</item>
+        <item>Ghanaian Cedi (₵)</item>
+        <item>Qatari Riyal (QAR)</item>
+        <item>Kuwaiti Dinar (KD)</item>
+        <item>Moroccan Dirham (MAD)</item>
+        <item>Tunisian Dinar (TND)</item>
+        <item>Jordanian Dinar (JOD)</item>
+        <item>Omani Rial (OMR)</item>
+    </string-array>
 </resources>
