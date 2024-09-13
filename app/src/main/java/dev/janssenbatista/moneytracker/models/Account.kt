@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 @Entity(tableName = "tb_accounts")
 data class Account(
     @PrimaryKey
-    val id: Int,
+    val id: Int?,
     val description: String,
     val amount: BigDecimal,
     @ColumnInfo("created_at")
