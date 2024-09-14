@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.room.Room
 import dev.janssenbatista.moneytracker.database.AppDatabase
+import dev.janssenbatista.moneytracker.repositories.AccountRepository
 import dev.janssenbatista.moneytracker.repositories.SettingsRepository
 import org.koin.dsl.module
 
@@ -28,6 +29,8 @@ val appModule = module {
             )
         ).build()
     }
+    // Account Repository
+    single<AccountRepository> { AccountRepository(get()) }
 }
 
 private fun provideDataStore(context: Context): DataStore<Preferences> = context.dataStore
