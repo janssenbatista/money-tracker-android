@@ -4,6 +4,9 @@
     <string name="go_back">Go back</string>
     <string name="search_currency">Search Currency</string>
     <string name="clear_search">Clear Search</string>
+    <string name="wallet">Wallet</string>
+    <string name="save">save</string>
+    <string name="go_to_account_list_screen">go to account list screen</string>
     <string-array name="currencies">
         <item>US Dollar ($)</item>
         <item>Euro (€)</item>
