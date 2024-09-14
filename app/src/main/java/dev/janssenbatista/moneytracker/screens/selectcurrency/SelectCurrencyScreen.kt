@@ -1,4 +1,4 @@
-package dev.janssenbatista.moneytracker.screens.splash
+package dev.janssenbatista.moneytracker.screens.selectcurrency
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -21,6 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,7 +38,10 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.janssenbatista.moneytracker.R
 import dev.janssenbatista.moneytracker.repositories.SettingsRepository
+import dev.janssenbatista.moneytracker.screens.accountList.AccountListScreen
+import dev.janssenbatista.moneytracker.screens.accountList.AccountListViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
 class SelectCurrencyScreen(private val showBackButton: Boolean) : Screen {
@@ -48,6 +52,7 @@ class SelectCurrencyScreen(private val showBackButton: Boolean) : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val settingsRepository: SettingsRepository = koinInject()
         val coroutineScope = rememberCoroutineScope()
+        val accountListViewModel: AccountListViewModel = koinViewModel()
 
         var selectedCurrency by remember {
             mutableStateOf("")
@@ -59,18 +64,41 @@ class SelectCurrencyScreen(private val showBackButton: Boolean) : Screen {
             mutableStateOf(currencies)
         }
 
+        LaunchedEffect(Unit) {
+            settingsRepository.getSelectedCurrency().collect {
+                selectedCurrency = it
+            }
+        }
+
         Scaffold(
             topBar = {
-                TopAppBar(title = { Text(text = stringResource(R.string.select_a_currency)) }, navigationIcon = {
-                    if (showBackButton) {
-                        IconButton(onClick = { navigator.pop() }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = stringResource(R.string.go_back)
-                            )
+                TopAppBar(
+                    title = { Text(text = stringResource(R.string.select_a_currency)) },
+                    navigationIcon = {
+                        if (showBackButton) {
+                            IconButton(onClick = { navigator.pop() }) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = stringResource(R.string.go_back)
+                                )
+                            }
                         }
-                    }
-                })
+                    },
+                    actions = {
+                        if (selectedCurrency.isNotBlank()) {
+                            IconButton(onClick = {
+                                navigator.push(AccountListScreen(accountListViewModel.accountListState.value))
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Default.Check,
+                                    contentDescription = if (showBackButton)
+                                        stringResource(R.string.save) else stringResource(
+                                        R.string.go_to_account_list_screen
+                                    )
+                                )
+                            }
+                        }
+                    })
             }
 
         ) { padding ->
@@ -79,7 +107,8 @@ class SelectCurrencyScreen(private val showBackButton: Boolean) : Screen {
                     value = searchText,
                     onValueChange = { value ->
                         searchText = value
-                        filteredCurrencies = currencies.filter { it.contains(searchText, ignoreCase = true) }
+                        filteredCurrencies =
+                            currencies.filter { it.contains(searchText, ignoreCase = true) }
                     },
                     trailingIcon = {
                         if (searchText.isBlank()) {
@@ -90,7 +119,6 @@ class SelectCurrencyScreen(private val showBackButton: Boolean) : Screen {
                         } else {
                             IconButton(onClick = {
                                 filteredCurrencies = currencies
-                                selectedCurrency = ""
                                 searchText = ""
                             }) {
                                 Icon(
