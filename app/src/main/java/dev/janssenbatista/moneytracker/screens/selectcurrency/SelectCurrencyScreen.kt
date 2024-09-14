@@ -39,7 +39,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.janssenbatista.moneytracker.R
 import dev.janssenbatista.moneytracker.repositories.SettingsRepository
 import dev.janssenbatista.moneytracker.screens.accounts.AccountsScreen
-import dev.janssenbatista.moneytracker.screens.accounts.AccountListViewModel
+import dev.janssenbatista.moneytracker.screens.accounts.AccountsViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
@@ -52,7 +52,7 @@ class SelectCurrencyScreen(private val showBackButton: Boolean) : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val settingsRepository: SettingsRepository = koinInject()
         val coroutineScope = rememberCoroutineScope()
-        val accountListViewModel: AccountListViewModel = koinViewModel()
+        val accountListViewModel: AccountsViewModel = koinViewModel()
 
         var selectedCurrency by remember {
             mutableStateOf("")
