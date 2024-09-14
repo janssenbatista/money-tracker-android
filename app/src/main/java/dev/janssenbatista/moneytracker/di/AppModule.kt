@@ -8,6 +8,7 @@ import androidx.room.Room
 import dev.janssenbatista.moneytracker.database.AppDatabase
 import dev.janssenbatista.moneytracker.repositories.AccountRepository
 import dev.janssenbatista.moneytracker.repositories.SettingsRepository
+import dev.janssenbatista.moneytracker.screens.account.AccountViewModel
 import dev.janssenbatista.moneytracker.screens.accounts.AccountsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -39,6 +40,10 @@ val appModule = module {
             get<AccountRepository>(),
             get<SettingsRepository>()
         )
+    }
+    // Account View Model
+    viewModel<AccountViewModel> {
+        AccountViewModel(get())
     }
 }
 
