@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -20,11 +21,33 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.janssenbatista.moneytracker.R
+import dev.janssenbatista.moneytracker.repositories.SettingsRepository
+import dev.janssenbatista.moneytracker.screens.home.HomeScreen
+import dev.janssenbatista.moneytracker.screens.selectcurrency.SelectCurrencyScreen
+import kotlinx.coroutines.delay
+import org.koin.compose.koinInject
 
 class SplashScreen : Screen {
+
     @Composable
     override fun Content() {
+        val settingsRepository: SettingsRepository = koinInject()
+        val navigator = LocalNavigator.currentOrThrow
+
+        LaunchedEffect(Unit) {
+            delay(3_000) // 3 seconds
+            settingsRepository.getShowIntroduction().collect { showIntroduction ->
+                if (showIntroduction) {
+                    navigator.replace(SelectCurrencyScreen(false))
+                } else {
+                    navigator.replace(HomeScreen())
+                }
+            }
+        }
+
         Scaffold { innerPadding ->
             Column(
                 Modifier
