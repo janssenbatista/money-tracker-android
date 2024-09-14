@@ -8,6 +8,8 @@ import androidx.room.Room
 import dev.janssenbatista.moneytracker.database.AppDatabase
 import dev.janssenbatista.moneytracker.repositories.AccountRepository
 import dev.janssenbatista.moneytracker.repositories.SettingsRepository
+import dev.janssenbatista.moneytracker.screens.accounts.AccountsViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -31,6 +33,13 @@ val appModule = module {
     }
     // Account Repository
     single<AccountRepository> { AccountRepository(get()) }
+    // Accounts View Model
+    viewModel<AccountsViewModel> {
+        AccountsViewModel(
+            get<AccountRepository>(),
+            get<SettingsRepository>()
+        )
+    }
 }
 
 private fun provideDataStore(context: Context): DataStore<Preferences> = context.dataStore
