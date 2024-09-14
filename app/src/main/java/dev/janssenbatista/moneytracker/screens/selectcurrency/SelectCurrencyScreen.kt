@@ -38,8 +38,8 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.janssenbatista.moneytracker.R
 import dev.janssenbatista.moneytracker.repositories.SettingsRepository
-import dev.janssenbatista.moneytracker.screens.accountList.AccountListScreen
-import dev.janssenbatista.moneytracker.screens.accountList.AccountListViewModel
+import dev.janssenbatista.moneytracker.screens.accounts.AccountsScreen
+import dev.janssenbatista.moneytracker.screens.accounts.AccountListViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
@@ -87,7 +87,7 @@ class SelectCurrencyScreen(private val showBackButton: Boolean) : Screen {
                     actions = {
                         if (selectedCurrency.isNotBlank()) {
                             IconButton(onClick = {
-                                navigator.push(AccountListScreen(accountListViewModel.accountListState.value))
+                                navigator.push(AccountsScreen(accountListViewModel.accountListState.value))
                             }) {
                                 Icon(
                                     imageVector = Icons.Default.Check,
