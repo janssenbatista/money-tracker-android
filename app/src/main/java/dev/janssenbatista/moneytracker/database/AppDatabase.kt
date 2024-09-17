@@ -13,7 +13,7 @@ import dev.janssenbatista.moneytracker.models.Account
 import dev.janssenbatista.moneytracker.models.AccountType
 import java.util.Date
 
-@Database(entities = [Account::class], version = 1)
+@Database(entities = [Account::class], version = 1, exportSchema = true)
 @TypeConverters(DataConverter::class, AmountConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
