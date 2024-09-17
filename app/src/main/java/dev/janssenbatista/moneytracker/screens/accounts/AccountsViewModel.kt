@@ -10,27 +10,37 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class AccountsViewModel(
     private val accountRepository: AccountRepository,
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
-    private val _accountListState = MutableStateFlow(AccountListState())
-    val accountListState = _accountListState.asStateFlow()
+    private val _accountsState = MutableStateFlow(AccountsState())
+    val accountListState = _accountsState.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            accountRepository.getAllAccounts().collect { accounts ->
-                _accountListState.update {
-                    it.copy(accounts = accounts)
+        _accountsState.update { accountsState ->
+            accountsState.copy(getAllAccounts = {
+                viewModelScope.launch {
+                    accountRepository.getAllAccounts().collect { accounts ->
+                        _accountsState.update {
+                            it.copy(accounts = accounts)
+                        }
+                    }
                 }
-            }
+            }, setShowIntroduction = { showIntroduction ->
+                viewModelScope.launch {
+                    settingsRepository.setShowIntroduction(showIntroduction)
+                }
+            })
         }
         viewModelScope.launch {
             settingsRepository.getSelectedCurrency().collect { currency ->
-                _accountListState.update {
-                    it.copy(symbol = CurrencyUtils.extractSymbolFromCurrency(currency))
+                _accountsState.update {
+                    val symbol = CurrencyUtils.extractSymbolFromCurrency(currency)
+                    it.copy(locale = CurrencyUtils.getLocaleByCurrencySymbol(symbol))
                 }
             }
         }
@@ -39,7 +49,9 @@ class AccountsViewModel(
 
 }
 
-data class AccountListState(
+data class AccountsState(
     val accounts: List<Account> = emptyList(),
-    val symbol: String = ""
+    val locale: Locale? = Locale.getDefault(),
+    val getAllAccounts: () -> Unit = {},
+    val setShowIntroduction: (Boolean) -> Unit = {}
 )
