@@ -10,6 +10,9 @@
     <string name="accounts">Accounts</string>
     <string name="add_new_account">add new account</string>
     <string name="confirm">confirm</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="are_you_sure_you_want_to_delete_account">Are you sure you want to delete %1$s account?</string>
+    <string name="yes">YES</string>
     <string-array name="currencies">
         <item>US Dollar ($)</item>
         <item>Euro (€)</item>
