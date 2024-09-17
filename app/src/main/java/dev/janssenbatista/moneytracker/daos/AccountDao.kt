@@ -17,4 +17,7 @@ interface AccountDao {
 
     @Query("SELECT * FROM tb_accounts WHERE id = :accountId")
     fun getAccountById(accountId: Int): Flow<Account?>
+
+    @Query("DELETE FROM tb_accounts WHERE id = :accountId")
+    fun deleteAccountById(accountId: Int)
 }
