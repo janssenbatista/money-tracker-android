@@ -87,7 +87,7 @@ class SelectCurrencyScreen(private val showBackButton: Boolean) : Screen {
                     actions = {
                         if (selectedCurrency.isNotBlank()) {
                             IconButton(onClick = {
-                                navigator.push(AccountsScreen(accountListViewModel.accountListState.value))
+                                navigator.push(AccountsScreen())
                             }) {
                                 Icon(
                                     imageVector = Icons.Default.Check,
