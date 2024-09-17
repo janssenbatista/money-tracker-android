@@ -10,6 +10,7 @@ import dev.janssenbatista.moneytracker.repositories.AccountRepository
 import dev.janssenbatista.moneytracker.repositories.SettingsRepository
 import dev.janssenbatista.moneytracker.screens.account.AccountViewModel
 import dev.janssenbatista.moneytracker.screens.accounts.AccountsViewModel
+import dev.janssenbatista.moneytracker.screens.home.tabs.home.HomeTabViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -30,7 +31,12 @@ val appModule = module {
             AppDatabase.AddAccountCallback(
                 get<Context>().applicationContext,
             )
-        ).build()
+        ).addCallback(
+            AppDatabase.AddCategoriesCallBack(
+                get<Context>().applicationContext
+            )
+        )
+            .build()
     }
     // Account Repository
     single<AccountRepository> { AccountRepository(get()) }

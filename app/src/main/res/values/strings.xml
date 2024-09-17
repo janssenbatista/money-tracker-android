@@ -76,4 +76,43 @@
         <item>Jordanian Dinar (JOD)</item>
         <item>Omani Rial (OMR)</item>
     </string-array>
+    <string-array name="income_categories">
+        <item>Salary</item>
+        <item>Business Income</item>
+        <item>Freelance Work</item>
+        <item>Investments</item>
+        <item>Rental Income</item>
+        <item>Dividends</item>
+        <item>Bonuses</item>
+        <item>Interest</item>
+        <item>Gifts Received</item>
+        <item>Tax Refunds</item>
+        <item>Grants</item>
+        <item>Pension</item>
+        <item>Royalties</item>
+        <item>Lottery Winnings</item>
+        <item>Other Income</item>
+    </string-array>
+    <string-array name="expense_categories">
+        <item>Rent/Mortgage</item>
+        <item>Utilities</item>
+        <item>Groceries</item>
+        <item>Transportation</item>
+        <item>Insurance</item>
+        <item>Health Care</item>
+        <item>Education</item>
+        <item>Debt Payments</item>
+        <item>Taxes</item>
+        <item>Home Maintenance</item>
+        <item>Dining Out</item>
+        <item>Entertainment</item>
+        <item>Travel</item>
+        <item>Clothing</item>
+        <item>Gifts Given</item>
+        <item>Subscriptions</item>
+        <item>Fitness</item>
+        <item>Personal Care</item>
+        <item>Hobbies</item>
+        <item>Electronics</item>
+    </string-array>
 </resources>
