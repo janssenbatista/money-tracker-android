@@ -51,22 +51,23 @@ class AccountsScreen : Screen {
                 TopAppBar(
                     title = { Text(text = stringResource(R.string.accounts)) },
                     actions = {
-                        IconButton(
-                            onClick = {
-                                coroutineScope.launch {
-                                    accountsState.setShowIntroduction(true)
-                                }.invokeOnCompletion {
-
-                                    navigator.popAll()
-                                    navigator.replace(HomeScreen())
-                                }
-                            }) {
-                            Icon(
-                                imageVector = Icons.Default.Check,
-                                contentDescription = stringResource(
-                                    R.string.confirm
+                        if (accountsState.isShowingIntroduction) {
+                            IconButton(
+                                onClick = {
+                                    coroutineScope.launch {
+                                        accountsState.setShowingIntroduction(false)
+                                    }.invokeOnCompletion {
+                                        navigator.popAll()
+                                        navigator.replace(HomeScreen())
+                                    }
+                                }) {
+                                Icon(
+                                    imageVector = Icons.Default.Check,
+                                    contentDescription = stringResource(
+                                        R.string.confirm
+                                    )
                                 )
-                            )
+                            }
                         }
                     },
                     navigationIcon = {

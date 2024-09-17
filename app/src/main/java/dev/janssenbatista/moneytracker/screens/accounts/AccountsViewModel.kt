@@ -22,25 +22,33 @@ class AccountsViewModel(
 
     init {
         _accountsState.update { accountsState ->
-            accountsState.copy(getAllAccounts = {
-                viewModelScope.launch {
-                    accountRepository.getAllAccounts().collect { accounts ->
-                        _accountsState.update {
-                            it.copy(accounts = accounts)
+            accountsState.copy(
+                getAllAccounts = {
+                    viewModelScope.launch {
+                        accountRepository.getAllAccounts().collect { accounts ->
+                            _accountsState.update {
+                                it.copy(accounts = accounts)
+                            }
                         }
                     }
-                }
-            }, setShowIntroduction = { showIntroduction ->
-                viewModelScope.launch {
-                    settingsRepository.setShowIntroduction(showIntroduction)
-                }
-            })
+                }, setShowingIntroduction = { isShowingIntroduction ->
+                    viewModelScope.launch {
+                        settingsRepository.setShowingIntroduction(isShowingIntroduction)
+                    }
+                })
         }
         viewModelScope.launch {
             settingsRepository.getSelectedCurrency().collect { currency ->
                 _accountsState.update {
                     val symbol = CurrencyUtils.extractSymbolFromCurrency(currency)
                     it.copy(locale = CurrencyUtils.getLocaleByCurrencySymbol(symbol))
+                }
+            }
+        }
+        viewModelScope.launch {
+            settingsRepository.isShowingIntroduction().collect { isShowingIntroduction ->
+                _accountsState.update {
+                    it.copy(isShowingIntroduction = isShowingIntroduction)
                 }
             }
         }
@@ -52,6 +60,7 @@ class AccountsViewModel(
 data class AccountsState(
     val accounts: List<Account> = emptyList(),
     val locale: Locale? = Locale.getDefault(),
+    val isShowingIntroduction: Boolean = true,
     val getAllAccounts: () -> Unit = {},
-    val setShowIntroduction: (Boolean) -> Unit = {}
+    val setShowingIntroduction: (Boolean) -> Unit = {}
 )

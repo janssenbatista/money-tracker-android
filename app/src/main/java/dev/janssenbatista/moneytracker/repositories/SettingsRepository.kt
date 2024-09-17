@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.map
 
 class SettingsRepository(private val dataStore: DataStore<Preferences>) {
 
-    suspend fun setShowIntroduction(showIntroduction: Boolean) {
+    suspend fun setShowingIntroduction(isShowingIntroduction: Boolean) {
         dataStore.edit { preferences ->
-            preferences[SHOW_INTRODUCTION] = showIntroduction
+            preferences[IS_SHOWING_INTRODUCTION] = isShowingIntroduction
         }
     }
 
-    fun getShowIntroduction(): Flow<Boolean> = dataStore.data.map { preferences ->
-        preferences[SHOW_INTRODUCTION] ?: true
+    fun isShowingIntroduction(): Flow<Boolean> = dataStore.data.map { preferences ->
+        preferences[IS_SHOWING_INTRODUCTION] ?: true
     }
 
     suspend fun setSelectedCurrency(selectedCurrency: String) {
@@ -31,7 +31,7 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
     }
 
     companion object {
-        private val SHOW_INTRODUCTION = booleanPreferencesKey("show_introduction")
+        private val IS_SHOWING_INTRODUCTION = booleanPreferencesKey("is_showing_introduction")
         private val SELECTED_CURRENCY = stringPreferencesKey("selected_currency")
     }
 }

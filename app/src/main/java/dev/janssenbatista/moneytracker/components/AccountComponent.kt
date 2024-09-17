@@ -2,6 +2,7 @@ package dev.janssenbatista.moneytracker.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,11 +28,12 @@ import dev.janssenbatista.moneytracker.models.AccountType
 import java.text.NumberFormat
 
 @Composable
-fun AccountComponent(account: Account, numberFormat: NumberFormat) {
+fun AccountComponent(account: Account, numberFormat: NumberFormat, onItemClick: () -> Unit) {
     Card(
         Modifier
             .padding(8.dp)
             .fillMaxWidth()
+            .clickable { onItemClick() }
     ) {
         Row(
             Modifier.padding(vertical = 8.dp, horizontal = 12.dp),

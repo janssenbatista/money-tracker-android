@@ -39,8 +39,8 @@ class SplashScreen : Screen {
 
         LaunchedEffect(Unit) {
             delay(3_000) // 3 seconds
-            settingsRepository.getShowIntroduction().collect { showIntroduction ->
-                if (showIntroduction) {
+            settingsRepository.isShowingIntroduction().collect { isShowingIntroduction ->
+                if (isShowingIntroduction) {
                     navigator.replace(SelectCurrencyScreen(false))
                 } else {
                     navigator.replace(HomeScreen())

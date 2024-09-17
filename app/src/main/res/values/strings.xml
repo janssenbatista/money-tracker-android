@@ -13,6 +13,16 @@
     <string name="delete_account">Delete Account</string>
     <string name="are_you_sure_you_want_to_delete_account">Are you sure you want to delete %1$s account?</string>
     <string name="yes">YES</string>
+    <string name="update_account">Update Account</string>
+    <string name="create_account">Create Account</string>
+    <string name="delete_account_cd">delete account %1$s</string>
+    <string name="description">Description</string>
+    <string name="amount">Amount</string>
+    <string name="account_type">Account Type</string>
+    <string name="description_must_contain_at_least_2_characters">Description must contain at least 2 characters</string>
+    <string name="invalid_amount">Invalid amount</string>
+    <string name="account_deleted_successfully">Account deleted successfully</string>
+    <string name="show_in_total_balance">Show in total balance</string>
     <string-array name="currencies">
         <item>US Dollar ($)</item>
         <item>Euro (€)</item>
