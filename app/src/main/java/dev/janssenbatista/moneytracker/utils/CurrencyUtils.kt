@@ -1,5 +1,6 @@
 package dev.janssenbatista.moneytracker.utils
 
+import java.math.BigDecimal
 import java.util.Locale
 
 object CurrencyUtils {
@@ -63,4 +64,13 @@ object CurrencyUtils {
     fun extractSymbolFromCurrency(currency: String) = currency.split(" ")
         .last()
         .replace(Regex("[()]"), "")
+
+    fun isValidBigDecimal(amount: String): Boolean {
+        return try {
+            BigDecimal(amount)
+            true
+        } catch (e: NumberFormatException) {
+            false
+        }
+    }
 }

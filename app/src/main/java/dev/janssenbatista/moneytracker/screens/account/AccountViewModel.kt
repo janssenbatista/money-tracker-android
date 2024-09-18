@@ -5,11 +5,11 @@ import androidx.lifecycle.viewModelScope
 import dev.janssenbatista.moneytracker.models.Account
 import dev.janssenbatista.moneytracker.models.AccountType
 import dev.janssenbatista.moneytracker.repositories.AccountRepository
+import dev.janssenbatista.moneytracker.utils.CurrencyUtils.isValidBigDecimal
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.math.BigDecimal
 import java.util.Date
 
 class AccountViewModel(private val accountRepository: AccountRepository) : ViewModel() {
@@ -105,15 +105,6 @@ class AccountViewModel(private val accountRepository: AccountRepository) : ViewM
                     }
                 }
             )
-        }
-    }
-
-    private fun isValidBigDecimal(amount: String): Boolean {
-        return try {
-            BigDecimal(amount)
-            true
-        } catch (e: NumberFormatException) {
-            false
         }
     }
 
