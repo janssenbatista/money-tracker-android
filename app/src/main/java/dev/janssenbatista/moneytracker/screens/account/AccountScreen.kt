@@ -1,19 +1,21 @@
 package dev.janssenbatista.moneytracker.screens.account
 
 import android.widget.Toast
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
@@ -21,6 +23,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -37,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -173,25 +177,34 @@ class AccountScreen(private val accountId: Int? = 1) :
                         .focusRequester(amountFocus)
                         .padding(bottom = 0.dp)
                 )
-                Box {
-                    OutlinedTextField(
-                        value = AccountType.getDescriptionById(accountState.accountType),
-                        readOnly = true,
-                        label = { Text(text = stringResource(R.string.account_type)) },
-                        onValueChange = { },
-                        trailingIcon = {
-                            IconButton(onClick = { isDropDownExpanded = !isDropDownExpanded }) {
-                                Icon(
-                                    imageVector = if (isDropDownExpanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.ArrowDropDown,
-                                    contentDescription = null
-                                )
-                            }
-                        }, modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                                isDropDownExpanded = !isDropDownExpanded
-                            }
-                    )
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            isDropDownExpanded = !isDropDownExpanded
+                        }
+                        .border(1.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(5.dp))) {
+                    Row(
+                        Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = AccountType.getDescriptionById(accountState.accountType),
+                        )
+                        if (isDropDownExpanded) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.arrow_drop_up),
+                                contentDescription = null
+                            )
+                        } else {
+                            Icon(
+                                imageVector = Icons.Default.ArrowDropDown,
+                                contentDescription = null
+                            )
+                        }
+                    }
                     DropdownMenu(
                         expanded = isDropDownExpanded,
                         onDismissRequest = {

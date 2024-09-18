@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
+import java.util.Date
 
 class AccountViewModel(private val accountRepository: AccountRepository) : ViewModel() {
     private val _accountState = MutableStateFlow(AccountState())
@@ -68,7 +69,9 @@ class AccountViewModel(private val accountRepository: AccountRepository) : ViewM
                             description = _accountState.value.description,
                             amount = _accountState.value.amount.toBigDecimal(),
                             accountType = _accountState.value.accountType,
-                            showInTotalBalance = _accountState.value.showInTotalBalance
+                            showInTotalBalance = _accountState.value.showInTotalBalance,
+                            createdAt = accountState.id?.let { accountState.createdAt } ?: Date(),
+                            updatedAt = Date()
                         )
                         accountRepository.addAccount(account)
                     }.invokeOnCompletion {
@@ -88,6 +91,8 @@ class AccountViewModel(private val accountRepository: AccountRepository) : ViewM
                                         amount = account.amount.toPlainString(),
                                         accountType = account.accountType,
                                         showInTotalBalance = account.showInTotalBalance,
+                                        createdAt = account.createdAt,
+                                        updatedAt = account.updatedAt
                                     )
                                 }
                             }
@@ -122,6 +127,8 @@ data class AccountState(
     var amountErrorMessage: String = "",
     var accountType: Int = AccountType.BANK.id,
     var showInTotalBalance: Boolean = true,
+    var createdAt: Date = Date(),
+    var updatedAt: Date = Date(),
     var isAccountCreated: Boolean = false,
     val setId: (Int) -> Unit = {},
     val setDescription: (String) -> Unit = {},
